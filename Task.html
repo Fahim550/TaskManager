@@ -74,50 +74,12 @@
         </button>
       </form>
 
-      <div class="overflow-x-auto mt-8" id="lists">
-        <!-- <div class="max-w-2xl mx-auto">
-          <div
-            class="bg-white rounded-2xl shadow-md p-6 mb-4 flex flex-col sm:flex-row sm:items-center justify-between"
-          >
-            <div class="flex-1">
-              <h2
-                class="text-xl font-semibold text-gray-800 mb-1"
-                id="value-title"
-              ></h2>
-              <p class="text-gray-600 mb-2" id="value-description"></p>
-              <div class="text-sm text-gray-500 flex items-center space-x-4">
-                <p><strong>Date:</strong> <span id="value-date"></span></p>
-
-                <p>
-                  <strong>Status:</strong>
-                  <span
-                    class="text-green-600 font-medium"
-                    id="value-status"
-                  ></span>
-                </p>
-              </div>
-            </div>
-
-            <div class="mt-4 sm:mt-0 sm:ml-6 flex space-x-2">
-              <button
-                class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-xl text-sm"
-              >
-                Done
-              </button>
-              <button
-                class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-sm"
-              >
-                Edit
-              </button>
-              <button
-                class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl text-sm"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div> -->
-      </div>
+      <select id="input-status" class="mt-8 w-36 mb-4 p-2 border rounded">
+        <option value="All">All</option>
+        <option value="Completed">Completed</option>
+        <option value="Pending">Pending</option>
+      </select>
+      <div class="overflow-x-auto mt-8" id="lists"></div>
     </div>
 
     <script src="Task.js"></script>
