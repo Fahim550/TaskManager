@@ -5,6 +5,8 @@
   const inputPriority = document.querySelector("#priority");
   const list_el = document.querySelector("#lists");
   const inputStatus = document.querySelector("#input-status");
+  const inputSearch = document.querySelector("#input-search");
+  const deleteAllBtn = document.querySelector("#delete-all-btn");
 
   let allTasks = getTasks();
 
@@ -34,12 +36,12 @@
     inputDescription.value = '';
     inputDate.value = '';
   });
-  
+ 
 
   inputStatus.addEventListener('change', () => {
     displayTasks(inputStatus.value);
   });
-
+  // show task in displayTasks
   const displayTasks = (filterStatus = "All") =>{
   list_el.innerHTML = '';
 
@@ -51,13 +53,21 @@
     list_el.innerHTML = `<p class="text-gray-500 text-center">No tasks found for "${filterStatus}".</p>`;
     return;
   }  
-  const priorityOrder = { High: 3, Medium: 2,Low: 1 };
 
-  filteredTasks.sort((a, b) => {
+  inputSearch.addEventListener('change', () => {
+    displayTasks(inputStatus.value);
+  });
+  const lowercasedSearchInput = inputSearch.value.toLowerCase();
+  const AllFilter = filteredTasks.filter((task) =>
+    task.title.toLowerCase().includes(lowercasedSearchInput));
+
+  const priorityOrder = { Low: 1, Medium: 2,High: 3 };
+
+  AllFilter.sort((a, b) => {
     return priorityOrder[b.priority] - priorityOrder[a.priority];
   });
 
-  filteredTasks.map(task => {
+  AllFilter.map(task => {
     console.log("sort",task.priority);
         const taskEl = document.createElement('div');
         taskEl.className = "bg-white rounded-2xl shadow-md p-6 flex flex-col sm:flex-row sm:items-center justify-between";
@@ -72,6 +82,7 @@
                 <strong>Status:</strong> 
                 <span class="${task.status === 'Completed' ? 'text-green-600' : 'text-yellow-600'} font-medium">${task.status}</span>
               </span>
+              <span><strong>Priority:</strong> ${task.priority}</span>
             </div>
           </div>
           <div class="mt-4 sm:mt-0 sm:ml-6 flex space-x-2">
@@ -94,12 +105,23 @@
     return JSON.parse(localStorage.getItem("tasks") || "[]");
     
   }
+  function deleteAll() {
+    localStorage.removeItem("tasks"); // clear from localStorage
+    allTasks = [];                   // clear in memory
+    displayTasks();                  // refresh the UI
+  }
+  
+  if (deleteAllBtn) {
+    deleteAllBtn.addEventListener('click', deleteAll);
+  }
 
   function deleteTask(id) {
     allTasks = allTasks.filter(task => task.id !== id);
     saveTasks();
     displayTasks(inputStatus.value);
   }
+
+
 
   function markDone(id) {
     allTasks = allTasks.map(task => {
