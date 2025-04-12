@@ -54,7 +54,7 @@
     return;
   }  
 
-  inputSearch.addEventListener('change', () => {
+  inputSearch.addEventListener('keyup', () => {
     displayTasks(inputStatus.value);
   });
   const lowercasedSearchInput = inputSearch.value.toLowerCase();
